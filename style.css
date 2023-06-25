@@ -1,5 +1,6 @@
 body{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -10,9 +11,22 @@ body{
     height: 960px;
     background-color: lightblue;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
-.pixel{
+.pixel-row{
+    display: flex;
+    flex: 1;
+}
 
+.pixel{
+    outline: solid 1px blue;
+    flex: 1;
+}
+
+#reset-button{
+    margin: 50px;
+    width: 200px;
+    height: 70px;
 }
