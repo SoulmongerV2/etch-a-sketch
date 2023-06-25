@@ -8,6 +8,10 @@ let shade;
 resetButton.addEventListener('click', resetPixelBoard)
 document.body.onmousedown = () => {isMouseDown = true;};
 document.body.onmouseup = () => {isMouseDown = false;};
+//document.body.ondrag = () => {isMouseDown = false; return;};
+pixelBoard.addEventListener("dragstart",(event)=>{
+    event.preventDefault();
+  })
 
 createPixelBoard(16);
 
@@ -41,19 +45,22 @@ function createPixelBoard(resolution){
         pixel.setAttribute('data-shade', '0');
 
         pixel.addEventListener('mousedown', () => {
-            pixel.style.backgroundColor = "black";
+            changeColor();
         }); 
         pixel.addEventListener('mouseover', () => {
             if(isMouseDown){
-                shade = pixel.getAttribute('data-shade');
-                if(shade < 10){
-                    shade++;
-                    pixel.setAttribute('data-shade', shade);
-                }
-                pixel.style.backgroundColor = `rgb(${255-shade*25},${255-shade*25},${255-shade*25})`;
+                changeColor();
             }
-            console.log(pixel.getAttribute('data-shade'));
         });
         pixelRow.appendChild(pixel);
+
+        function changeColor(){
+            shade = pixel.getAttribute('data-shade');
+            if(shade < 10){
+                shade++;
+                pixel.setAttribute('data-shade', shade);
+            }
+            pixel.style.backgroundColor = `rgb(${255-shade*25},${255-shade*25},${255-shade*25})`;
+        }
     }
 }

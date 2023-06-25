@@ -9,7 +9,7 @@ body{
 .pixel-board{
     width: 960px;
     height: 960px;
-    background-color: lightblue;
+    background-color: rgb(245, 245, 245);
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -21,7 +21,7 @@ body{
 }
 
 .pixel{
-    outline: solid 1px blue;
+    outline: solid 1px rgb(235,235,235);
     flex: 1;
 }
 
