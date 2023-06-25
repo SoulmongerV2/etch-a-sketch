@@ -3,15 +3,20 @@ const resetButton = document.querySelector('#reset-button');
 
 const pixelBoardSize = 960;
 let isMouseDown = false;
+let shade;
 
 resetButton.addEventListener('click', resetPixelBoard)
 document.body.onmousedown = () => {isMouseDown = true;};
 document.body.onmouseup = () => {isMouseDown = false;};
 
-createPixelBoard(30);
+createPixelBoard(16);
 
 function resetPixelBoard(){
-    let resolution = prompt("Choose board size.");
+    let resolution = prompt("Choose pixel density. (Up to 100)");
+    if (isNaN(resolution) || resolution < 1 || resolution > 100){
+        alert("Please enter a whole, positive number between 1 and 100.");
+        return;
+    }
     createPixelBoard(resolution);
 }
 
@@ -33,13 +38,21 @@ function createPixelBoard(resolution){
     function createPixel(size){
         let pixel = document.createElement('div');
         pixel.classList.add('pixel');
-        pixel.setAttribute('draggable', 'false');
+        pixel.setAttribute('data-shade', '0');
+
         pixel.addEventListener('mousedown', () => {
             pixel.style.backgroundColor = "black";
         }); 
         pixel.addEventListener('mouseover', () => {
-            if(isMouseDown)
-            pixel.style.backgroundColor = "black";
+            if(isMouseDown){
+                shade = pixel.getAttribute('data-shade');
+                if(shade < 10){
+                    shade++;
+                    pixel.setAttribute('data-shade', shade);
+                }
+                pixel.style.backgroundColor = `rgb(${255-shade*25},${255-shade*25},${255-shade*25})`;
+            }
+            console.log(pixel.getAttribute('data-shade'));
         });
         pixelRow.appendChild(pixel);
     }
